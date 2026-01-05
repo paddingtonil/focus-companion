@@ -1,12 +1,36 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useTestStore } from '@/stores/testStore';
+import { WelcomeScreen } from '@/components/screens/WelcomeScreen';
+import { PatientInfoScreen } from '@/components/screens/PatientInfoScreen';
+import { MedicationScreen } from '@/components/screens/MedicationScreen';
+import { CalibrationScreen } from '@/components/screens/CalibrationScreen';
+import { TestScreen } from '@/components/screens/TestScreen';
+import { ResultsScreen } from '@/components/screens/ResultsScreen';
 
 const Index = () => {
+  const currentScreen = useTestStore((state) => state.currentScreen);
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'welcome':
+        return <WelcomeScreen />;
+      case 'patient_info':
+        return <PatientInfoScreen />;
+      case 'medication':
+        return <MedicationScreen />;
+      case 'calibration':
+        return <CalibrationScreen />;
+      case 'test':
+        return <TestScreen />;
+      case 'results':
+        return <ResultsScreen />;
+      default:
+        return <WelcomeScreen />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      {renderScreen()}
     </div>
   );
 };
